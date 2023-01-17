@@ -1,16 +1,18 @@
 //All variables
 
+const buttonAddElement = document.querySelector('.js-buttonadd');
+
+const list = document.querySelector('.js-ToDoListRow');
+
+const forms = document.querySelector('.form__row')
+
 const form = document.forms.main;
 
 const inputName = form.input;
 
 const textOfField = [];
 
-const buttonAddElement = document.querySelector('.js-buttonadd');
-
-const list = document.querySelector('.js-ToDoListRow');
-
-const todolistRow = document.querySelector('.js-ToDoListRow');
+let i = 0;
 
 //All function
 
@@ -36,7 +38,25 @@ function clearTextOfField(){
     
 }
 
-function buttonAdd(){
+function resetElements(){
+    
+    if(i == 0){
+        
+        const removeAll = document.createElement('div');
+
+        removeAll.innerHTML = `<button class="js-resetButton">Reset All</button>`;
+         
+        removeAll.classList.add('removeAll');
+         
+        forms.append(removeAll); 
+        
+        i++;
+        
+    }
+       
+}
+
+function elementAdd(){
     
     const string = textOfField.pop();
     
@@ -46,14 +66,14 @@ function buttonAdd(){
         
      }else{
          
-        const elementOfList = document.createElement("div");
-        
+        const elementOfList = document.createElement('div');
+         
         elementOfList.classList.add('element__row');
     
         list.append(elementOfList);
          
         elementOfList.innerHTML = `<div class="element__text"> ${string}</div>`;
-         
+
         const crest = document.createElement("div");
          
         crest.classList.add('crest');
@@ -62,9 +82,23 @@ function buttonAdd(){
          
         elementOfList.append(crest);
          
+        resetElements();
+         
         clearTextOfField();
          
     }
+    
+}
+
+function setStyle(target){
+    
+    target.classList.toggle('active');
+    
+}
+
+function remove(target){
+
+    target.remove();
     
 }
 
@@ -80,25 +114,29 @@ buttonAddElement.addEventListener('click', function(e){
     
     e.preventDefault();  
     
-    buttonAdd();
+    elementAdd();
     
 });
 
-todolistRow.addEventListener('click', function(e){
+list.addEventListener('click', function({target}){
     
-    e.stopPropagation();
-    
-    const target = e.target;
-    
-    const elementOfList = todolistRow.querySelector('.element__row');
-        
-        target.classList.toggle('active');
+    const crest = list.querySelector('.js-elementbutton');
 
+    const element = list.querySelector('.element__row');
+    
+    if(target.classList.contains('element__row')){
         
+        setStyle(target)
+        
+    }
+    
+    if(target.classList.contains('js-elementbutton')){
+        
+        remove(target.closest('.element__row'))
+    
+    }
+    
+    
 });
-
-
-
-
 
 
