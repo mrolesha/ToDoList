@@ -99,18 +99,12 @@ body{
     background: #808080;
 }
 
-.js-elementbutton{
-    padding: 20px 30px;
-}
-
 .active:hover{
     background: #4d4d4d;
     transition: 0.3s;
     color: #ffffff;
     text-decoration: line-through;
 }
-
-
 
 .element__text{
     display: flex;
@@ -128,7 +122,22 @@ body{
 .img{
     width: 40px;
     height: 40px;
-    margin: 0 15px 0 0;
+    padding: 20px 30px;
+}
+
+.form__row{
+    display: flex;
+    align-items: center;
+}
+
+.js-resetButton{
+    border: none;
+    border-left: 2px #000000 solid;
+    background: #B4B4B4;
+    padding: 4px 20px;
+    font-family: monospace;
+    font-size: 20px;
+    color: #505050;
 }
 
 
