@@ -334,7 +334,6 @@ menuLinks.addEventListener('click', function(e){
 			
 			allList();
 
-			
 		}
 	
 		if(target == active){
