@@ -8,7 +8,6 @@
 
 body{
     background: #f5f5f5;
-    
 }
 
 .container{ 
@@ -51,7 +50,7 @@ body{
     border: none;
     font-size: 50px;
     color: #000000;
-    width: 900px;
+    max-width: 900px;
     margin: 0 100px;
 }
 
@@ -77,17 +76,26 @@ input:active, :hover, :focus {
     align-items: center;
     justify-content: space-between;
     border: none;
-    padding: 30px;
+	padding: 30px;
     font-size: 50px;
-    width: 900px;
+    min-width: 900px;
     box-shadow: 0 3px 15px gray;
     background: #ffffff;
+	max-height: auto;
+	align-items: center;
 }
 
 .element__text{
+	margin: 0 0 0 20px;
     transition: 1s;
     color: #4d4d4d;
-    margin: 0 0 0 -500px;
+	max-width: 700px;
+	word-wrap: break-word;
+}
+
+.left__row{
+	display: flex;
+	align-items: center;
 }
 
 .active .element__text{
@@ -117,14 +125,13 @@ input:active, :hover, :focus {
     color: #505050;
 }
 
-
 .input__todolist{
     display: flex;
     align-items: center;
     border: none;
     padding: 30px ;
     font-size: 50px;
-    width: 900px;
+    min-width: 900px;
     box-shadow: 0 3px 15px gray;
     background: #ffffff;
 }
@@ -150,7 +157,7 @@ input:active, :hover, :focus {
     border: none;
     padding: 30px ;
     font-size: 25px;
-    width: 900px;
+    min-width: 900px;
     color: #e6e6e6;
     box-shadow: 0 3px 15px gray;
     background: #ffffff;
@@ -163,7 +170,7 @@ input:active, :hover, :focus {
 }
 
 .footer__menu{
-    width: 400px;
+    min-width: 400px;
 }
 
 .first:hover{
@@ -187,7 +194,145 @@ input:active, :hover, :focus {
     background: #ffffff;
     font-size: 25px;
     color: #777777;
-    padding: 5px 10px;
+    padding: 15px 20px;
     margin: 0 5px;
 }
+
+._active{
+	border: 1px #efd5d5 solid;
+}
+
+
+@media (max-width: 1100px){
+	
+	.container{
+		width: 900px;
+	}
+	
+	.element__row{
+		min-width: 670px;
+	}
+	
+	.element__text{
+		max-width: 500px;
+	}
+	
+	.todolist__text{
+		font-size: 40px;
+		width: 570px;
+		margin: 0 0 0 100px;
+	}
+
+	.ToDoList__title{
+    	font-size: 60px;
+	}
+	
+	.input__todolist{
+		min-width: 500px;
+	}
+	
+	.formon{
+		justify-content: space-around;
+    	padding: 30px ;
+    	font-size: 25px;
+    	min-width: 600px;
+	}
+	
+	.footer__count{
+    	color: #777777;
+		font-size: 15px;
+    	width: 150px;
+	}
+	
+	.form__footer{
+		max-width: 670px;
+	}
+	
+	.footer__clear{
+		font-size: 15px;
+	}
+	
+	.first{
+		border: none;
+   	 	background: #ffffff;
+    	font-size: 15px;
+    	color: #777777;
+	}
+	
+}
+
+@media (max-width: 900px){
+	
+	.container{
+		width: 600px;
+	}
+	
+	.element__row{
+		min-width: 470px;
+		font-size: 20px;
+		padding: 0 30px;
+	}
+	
+	.element__text{
+		max-width: 400px;
+	}
+	
+	.todolist__text{
+		font-size: 20px;
+		width: 370px;
+		margin: 0 0 0 100px;
+	}
+
+	.ToDoList__title{
+    	font-size: 40px;
+	}
+	
+	.input__todolist{
+		min-width: 370px;
+	}
+	
+	.formon{
+		justify-content: space-around;
+    	padding: 30px ;
+    	font-size: 20px;
+    	min-width: 370px;
+	}
+	
+	.footer__count{
+    	color: #777777;
+		margin: 0 40px 0 20px;
+		font-size: 10px;
+    	width: 100px;
+	}
+	
+	.form__footer{
+		max-width: 470px;
+	}
+	
+	.footer__clear{
+		font-size: 10px;
+	}
+	
+	.first{
+		border: none;
+   	 	background: #ffffff;
+    	font-size: 10px;
+    	color: #777777;
+	}
+	
+	.footer__menu{
+		margin: 0 -100px 0 50px;
+		max-width: 400px;
+	}
+	
+}
+
+@media (max-width:600px){
+	
+	body{
+		padding: 10px;
+	}
+	
+}
+
 
