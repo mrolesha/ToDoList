@@ -168,7 +168,7 @@ function remove(target){
 
 function checkString(string){
 	
-	for(let i = 0; i<string.length; i++){
+	for(let i = 0; i < string.length; i++){
 		
 			if(string[i] === ' '){
 
@@ -187,8 +187,6 @@ function checkString(string){
 function allList(){
 	
 	for(let i = 0; i < elements.length; i++){
-		
-		console.log(elements);
 		
 		if(elements[i].classList.contains('element__row')){
 			
@@ -362,5 +360,6 @@ menuLinks.addEventListener('click', function(e){
 			completedList();
 			
 		}
+	
 	
 });
