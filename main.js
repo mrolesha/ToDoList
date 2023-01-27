@@ -16,6 +16,8 @@ const footerCount = forms.querySelector('.footer__count');
 
 const reset = forms.querySelector('.js-clear');
 
+const menuLinks = forms.querySelector('.footer__menu');
+
 const all = forms.querySelector('.js-all');
 
 const active = forms.querySelector('.js-active');
@@ -85,13 +87,19 @@ function elementAdd(string){
         list.append(elementOfList);
     
         const circle = document.createElement('div');
-    
+	
+		const elementRow = document.createElement('div');
+		
+		elementRow.classList.add('left__row')
+	
+		elementOfList.append(elementRow);
+
         circle.innerHTML = `<img class="circle" src="img/circle.png" alt="">`;
         
-        elementOfList.innerHTML = `<div class="element__text"> ${string}</div>`;
+        elementRow.innerHTML = `<div class="element__text"> ${string}</div>`;
     
-        elementOfList.prepend(circle);
-
+        elementRow.prepend(circle);
+	
         const crest = document.createElement("div");
          
         crest.classList.add('crest');
@@ -107,6 +115,8 @@ function elementAdd(string){
         switchFooter.classList.add('formon');
     
         elements.push(elementOfList);
+	
+		all.classList.add('_active');
     
         clearTextOfField();
          
@@ -156,30 +166,96 @@ function remove(target){
     
 }
 
+function checkString(string){
+	
+	for(let i = 0; i<string.length; i++){
+		
+			if(string[i] === ' '){
+
+            	return;
+
+        	}else{
+				
+				return elementAdd(string);
+				
+			}
+				
+	}
+	
+}
+
+function allList(){
+	
+	for(let i = 0; i < elements.length; i++){
+		
+		console.log(elements);
+		
+		if(elements[i].classList.contains('element__row')){
+			
+			list.append(elements[i]);	
+			
+		}
+
+	}
+	
+}
+
+function activeList(){
+	
+	for(let i = 0; i < elements.length; i++){
+		
+		if(elements[i].classList.contains('active')){
+			
+			elements[i].remove();
+			
+		}else{ 
+		
+			list.append(elements[i]);
+			
+		}
+
+	}
+	
+}
+
+function completedList(){
+	
+	for(let i = 0; i < elements.length; i++){
+		
+		if(elements[i].classList.contains('active')){
+			
+			list.append(elements[i]);	
+			
+		}else{
+			
+			elements[i].remove();
+			
+		}
+
+	}
+	
+}
+
 //All events
 
 inputName.addEventListener('keydown', function(e){
-    
+
     if(e.code != 'Enter'){
-        
+
         inputName.addEventListener("input", function(e){
-    
+
             changeTextOfField(inputName.value);
-    
+
         });
-  
+
     }else{
-        
+
         e.preventDefault();  
-        
+
         const string = textOfField.pop();
-        
-        if(string.length>=1){
-            
-            elementAdd(string);
-    
-        }
-        
+
+		checkString(string);
+
     }
     
 });
@@ -192,13 +268,29 @@ list.addEventListener('click', function({target}){
     
     if(target.classList.contains('element__row')){
         
-        setStyle(target);
-        
+		if(target.closest('.element__row')){
+				
+        	setStyle(target);
+
+		}
+		
     }
     
     if(target.classList.contains('js-elementbutton')){
-        
+		
         remove(target.closest('.element__row'));
+		
+		for(let i = 0; i < elements.length; i++){
+			
+			if(target.closest('.element__row') == elements[i]){
+				
+				elements.splice(i, i);
+				
+				console.log(elements)
+				
+			}
+			
+		}
         
     }
     
@@ -213,9 +305,62 @@ reset.addEventListener('click', function(e){
     arrow.classList.remove('arrow');
        
     switchFooter.classList.remove('formon');
-    
+	
+	all.classList.remove('active');
+
+	active.classList.remove('active');
+
+	completed.classList.remove('active');
+	
+	elements.splice(0, elements.length);
+	
     arrowCount = 0 ;
     
     i = 0 ;
     
+});
+
+menuLinks.addEventListener('click', function(e){
+	
+		e.preventDefault();
+		
+		const target = e.target;
+	
+		if(target == all){
+			
+			all.classList.add('_active');
+			
+			active.classList.remove('_active');
+			
+			completed.classList.remove('_active');
+			
+			allList();
+
+			
+		}
+	
+		if(target == active){
+			
+			all.classList.remove('_active');
+			
+			active.classList.add('_active');
+			
+			completed.classList.remove('_active');
+			
+			activeList();
+			
+		}
+	
+		if(target == completed){
+			
+			all.classList.remove('_active');
+			
+			active.classList.remove('_active');
+			
+			completed.classList.add('_active');
+			
+			completedList();
+			
+		}
+	
 });
