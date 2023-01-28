@@ -236,14 +236,14 @@ function completedList(){
 
 //All events
 
-inputName.addEventListener('keydown', function(e){
+inputName.addEventListener('keyup', function(e){
 
     if(e.code != 'Enter'){
 
         inputName.addEventListener("input", function(e){
 
             changeTextOfField(inputName.value);
-
+			
         });
 
     }else{
@@ -282,14 +282,12 @@ list.addEventListener('click', function({target}){
 			
 			if(target.closest('.element__row') == elements[i]){
 				
-				elements.splice(i, i);
-				
-				console.log(elements)
+				elements.splice(i);
 				
 			}
 			
 		}
-        
+		
     }
     
 });
