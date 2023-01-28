@@ -166,21 +166,22 @@ function remove(target){
     
 }
 
-function checkString(string){
+function removeSpaceInString(str){
 	
-	for(let i = 0; i < string.length; i++){
+	let space = '';
+	
+	for(let i = 0; i < str.length; i++){
 		
-			if(string[i] === ' '){
+			if(str[i] != ' '){
 
-            	return;
+            	space += str[i]; 
 
-        	}else{
-				
-				return elementAdd(string);
-				
-			}
+        	}
 				
 	}
+	
+		return elementAdd(space);
+
 	
 }
 
@@ -250,9 +251,9 @@ inputName.addEventListener('keyup', function(e){
 
         e.preventDefault();  
 
-        const string = textOfField.pop();
+        const str = textOfField.pop();
 
-		checkString(string);
+		removeSpaceInString(str);
 
     }
     
