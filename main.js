@@ -183,10 +183,9 @@ function removeSpaceInString(str){
 				
 			}
 		
-				
 	}
 	
-		return elementAdd(space);
+		return space;
 	
 	console.log(space);
 	
@@ -261,6 +260,8 @@ inputName.addEventListener('keyup', function(e){
         const str = textOfField.pop();
 
 		removeSpaceInString(str);
+		
+		elementAdd(str);
 
     }
     
