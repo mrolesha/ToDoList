@@ -170,18 +170,25 @@ function removeSpaceInString(str){
 	
 	let space = '';
 	
+	
 	for(let i = 0; i < str.length; i++){
 		
-			if(str[i] != ' '){
+			if(str[i] == ' ' && str[i+1] == ' '){
+		
+				delete str[i];
 
-            	space += str[i]; 
-
-        	}
+        	}else{
+				
+				space += str[i]
+				
+			}
+		
 				
 	}
 	
 		return elementAdd(space);
-
+	
+	console.log(space);
 	
 }
 
