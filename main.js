@@ -6,8 +6,6 @@ const list = document.querySelector('.js-ToDoListRow');
 
 const forms = document.querySelector('.form__row');
 
-const circle = document.querySelector('.circle');
-
 const arrow = forms.querySelector('.arrow-js');
 
 const switchFooter = document.querySelector('.footer-js');
@@ -32,9 +30,11 @@ const textOfField = [];
 
 const elements = [];
 
-let i = 0;
+const markElements = [];
 
 let arrowCount = 0;
+
+let markedElements = 0;
 
 //All function
 
@@ -92,6 +92,8 @@ function elementAdd(string){
 		
 		elementRow.classList.add('left__row')
 	
+		circle.classList.add('mark');
+	
 		elementOfList.append(elementRow);
 
         circle.innerHTML = `<img class="circle" src="img/circle.png" alt="">`;
@@ -109,67 +111,94 @@ function elementAdd(string){
         elementOfList.append(crest);
     
         arrow.classList.add('arrow');
-    
-        checkCount();
-        
+	
+		checkCount(elements.length + 1 - markedElements);
+	
         switchFooter.classList.add('formon');
     
         elements.push(elementOfList);
 	
-		all.classList.add('_active');
-    
         clearTextOfField();
          
 }
 
-function checkCount(){
-    
-    arrowCount++;
-    
-    if(arrowCount == 1){
-        
-        footerCount.innerHTML = `${arrowCount} item left`;
-        
-    }else{
-        
-        footerCount.innerHTML = `${arrowCount} items left`;
-        
-    }
-    
+function checkCount(arrowCounts){
+	
+	footerCount.innerHTML = `${arrowCounts} item left`
+	
 }
 
 function setStyle(target){
-    
-    target.classList.toggle('active');
-    
+	
+	const active = target.closest('.element__row');
+	
+    active.classList.toggle('active')
+	
+}
+
+function setCircle(target){
+	
+	if(target.innerHTML == `<img class="circle" src="img/marked.png" alt="">`){
+		
+		target.innerHTML = `<img class="circle" src="img/circle.png" alt="">`;
+		
+		markedElements--;
+		
+	}else{
+		
+		target.innerHTML = `<img class="circle" src="img/marked.png" alt="">`;
+		
+		markedElements++;
+		
+	}
+
 }
 
 function remove(target){
+	
+	if(target.querySelector('.mark').innerHTML == `<img class="circle" src="img/marked.png" alt="">`){
+		
+		markedElements--;
+		
+		target.remove();
 
-    target.remove();
-    
-    --arrowCount;
-    
-    if(arrowCount == 0){
-        
+	}else{
+		
+		target.remove();
+		
+	}
+	
+    if(elements.length == 1){
+		
         arrow.classList.remove('arrow');
        
         switchFooter.classList.remove('formon');
         
-        footerCount.innerHTML = `${arrowCount} item left`;
-        
-    }else{
-        
-        footerCount.innerHTML = `${arrowCount} items left`;
-        
-    }
-    
+	}else{
+		
+		footerCount.innerHTML = `${elements.length} items left`;	
+		
+	}
+	
+}
+
+function checkString(string){
+	
+	for(let i = 0; i < string.length; i++){
+		
+		if(string[i] != ' '){
+
+			return elementAdd(string);
+
+		}
+		
+	}
+		
 }
 
 function removeSpaceInString(str){
 	
 	let space = '';
-	
 	
 	for(let i = 0; i < str.length; i++){
 		
@@ -185,9 +214,35 @@ function removeSpaceInString(str){
 		
 	}
 	
-		return space;
+	checkString(str);
 	
-	console.log(space);
+}
+
+function changeTextString(){
+	
+	const letas = [];
+	
+	const changeText = list.querySelector('.element__text');
+	
+	for(let i = 0; i < elements.length; i++){
+			
+		letas.push(elements[i].querySelector('.element__text'));
+		
+	}
+		
+	list.addEventListener('dblclick', function({target}){
+		
+		for(let i = 0; i < letas.length; i++){
+			
+			if(target == letas[i]){
+				
+				letas[i].innerHTML= `<input class="texttt" name="input" type="text"> `;
+				
+			}
+			
+		}
+		
+	});
 	
 }
 
@@ -197,7 +252,7 @@ function allList(){
 		
 		if(elements[i].classList.contains('element__row')){
 			
-			list.append(elements[i]);	
+			list.append(elements[i]);
 			
 		}
 
@@ -241,6 +296,46 @@ function completedList(){
 	
 }
 
+function cleanElementsArray(){
+	
+	for(let i = 0; i < elements.length; i++){
+			
+		if(elements[i].classList.contains('active')){
+
+			elements.splice(i, i+1);
+			
+		}
+			
+	}
+	
+	for(let i = 0; i < elements.length; i++){
+			
+		if(elements[i].classList.contains('active')){
+
+			elements.splice(i, i+1);
+			
+		}
+			
+	}
+	
+	if(elements.length == 0){
+		
+        arrow.classList.remove('arrow');
+       
+        switchFooter.classList.remove('formon');
+        
+        footerCount.innerHTML = `${arrowCount} item left`;
+        
+	}else{
+		
+		footerCount.innerHTML = `${arrowCount} items left`;	
+		
+	}
+	
+	checkCount(elements.length);
+	
+}
+
 //All events
 
 inputName.addEventListener('keyup', function(e){
@@ -261,25 +356,25 @@ inputName.addEventListener('keyup', function(e){
 
 		removeSpaceInString(str);
 		
-		elementAdd(str);
-
     }
     
 });
 
 list.addEventListener('click', function({target}){
     
-    const crest = list.querySelector('.js-elementbutton');
+    const button = list.querySelector('.js-elementbutton');
 
     const element = list.querySelector('.element__row');
-    
-    if(target.classList.contains('element__row')){
-        
-		if(target.closest('.element__row')){
-				
-        	setStyle(target);
 
-		}
+    if(target.classList.contains('circle')){
+		
+		setStyle(target.closest('.left__row'));
+		
+		setCircle(target.closest('.mark'));
+		
+		markElements.push(target);
+		
+		checkCount(elements.length-markedElements);
 		
     }
     
@@ -291,38 +386,38 @@ list.addEventListener('click', function({target}){
 			
 			if(target.closest('.element__row') == elements[i]){
 				
-				elements.splice(i);
+				elements.splice(i, i+1);
 				
 			}
 			
 		}
 		
+		checkCount(elements.length-markedElements);
+		
     }
-    
+		
+		changeTextString();
+	
 });
 
 reset.addEventListener('click', function(e){
     
     e.preventDefault();
-    
-    list.innerHTML = `` ;
-    
-    arrow.classList.remove('arrow');
-       
-    switchFooter.classList.remove('formon');
 	
-	all.classList.remove('active');
+	for(let i = 0; i < elements.length; i++){
+		
+		if(elements[i].classList.contains('active')){
+			
+			elements[i].remove();
+			
+		}
 
-	active.classList.remove('active');
-
-	completed.classList.remove('active');
+	}
 	
-	elements.splice(0, elements.length);
+	markedElements = 0;
+		
+	cleanElementsArray();
 	
-    arrowCount = 0 ;
-    
-    i = 0 ;
-    
 });
 
 menuLinks.addEventListener('click', function(e){
@@ -366,5 +461,41 @@ menuLinks.addEventListener('click', function(e){
 			completedList();
 			
 		}
+	
+});
+
+arrow.addEventListener('click', function(e){
+	
+	e.preventDefault();
+	
+	const markedArray = [];
+	
+	for(let i = 0; i < elements.length; i++){
+		
+		const target = elements[i].querySelector('.mark');
+		
+		if(!elements[i].classList.contains('active')){
+			
+			elements[i].classList.add('active');
+			
+			markedArray.push(elements[i]);
+		
+			setCircle(target);
+			
+		}else{
+			
+				elements[i].classList.remove('active');
+				
+				setCircle(target);
+				
+		}
+		
+	}
+	
+	markedElements = markedArray.length;
+	
+	checkCount(elements.length-markedElements);
+	
+	markedArray.splice(0,99999);
 	
 });
