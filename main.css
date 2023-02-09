@@ -104,10 +104,9 @@ input:active, :hover, :focus {
     color: #e6e6e6;
 }
 
-.img{
+.circle{
     width: 40px;
     height: 40px;
-    padding: 20px 30px;
 }
 
 .form__row{
@@ -201,7 +200,6 @@ input:active, :hover, :focus {
 ._active{
 	border: 1px #efd5d5 solid;
 }
-
 
 @media (max-width: 1100px){
 	
